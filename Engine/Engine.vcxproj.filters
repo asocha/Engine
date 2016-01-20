@@ -1,0 +1,420 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Renderer">
+      <UniqueIdentifier>{0bed2e40-6012-406f-8f10-85b73a873c12}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Math">
+      <UniqueIdentifier>{22d50389-b5a3-4e43-ab9e-c8402784bdce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Physics">
+      <UniqueIdentifier>{56baba8b-a824-4dcc-9dc6-0fb85aa6f3b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Time">
+      <UniqueIdentifier>{4eaed878-4865-4b15-b8d9-63cc4f5f1076}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Color">
+      <UniqueIdentifier>{9399d780-c10c-4e58-a554-6461579e5de8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Input">
+      <UniqueIdentifier>{9a3e957e-6b71-4d2c-bb7b-d2e7fdae4f3f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sound">
+      <UniqueIdentifier>{67c2a95a-5087-4f9e-99db-7b6d0f5395ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core">
+      <UniqueIdentifier>{e4223f68-bf9d-40ba-a39e-3dab6fbbaf0f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Console">
+      <UniqueIdentifier>{378d015b-6b3c-4511-810f-14a52ad8723f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Math\3D">
+      <UniqueIdentifier>{bbd0d8be-0a78-4d5d-88b4-094b8b64fbea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Math\2D">
+      <UniqueIdentifier>{2615361e-eae7-4594-86af-c930f032c5b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Math\4D">
+      <UniqueIdentifier>{9a4bbf59-cee7-4c7b-be1b-9ca8f4088ba5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="XML">
+      <UniqueIdentifier>{afa12cea-d13a-46ad-b1be-7fa31c0d86c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Threads">
+      <UniqueIdentifier>{0ae796aa-f334-44c5-a56f-5e7a3dc5ecd7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Threads\Jobs">
+      <UniqueIdentifier>{3517ef8f-c612-447f-acf2-7f55f8edd8f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Networking">
+      <UniqueIdentifier>{b0192774-40ee-46c5-af55-027907b12c8e}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Renderer\OpenGLRenderer.hpp">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\MathUtils.hpp">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics\Physics2D.hpp">
+      <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Time\Time.hpp">
+      <Filter>Time</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\Texture.hpp">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Color\RGBA.hpp">
+      <Filter>Color</Filter>
+    </ClInclude>
+    <ClInclude Include="Input\InputSystem.hpp">
+      <Filter>Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\AnimatedTexture.hpp">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Sound\SoundSystem.hpp">
+      <Filter>Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="Sound\Sound.hpp">
+      <Filter>Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Utilities.hpp">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Console\Console.hpp">
+      <Filter>Console</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\AABB2D.hpp">
+      <Filter>Math\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\AABB3D.hpp">
+      <Filter>Math\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Disc2D.hpp">
+      <Filter>Math\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Disc3D.hpp">
+      <Filter>Math\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\LineSegment2D.hpp">
+      <Filter>Math\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\LineSegment3D.hpp">
+      <Filter>Math\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Vec2.hpp">
+      <Filter>Math\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Vec3.hpp">
+      <Filter>Math\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Math3D.hpp">
+      <Filter>Math\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Math2D.hpp">
+      <Filter>Math\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Vec4.hpp">
+      <Filter>Math\4D</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Matrix4.hpp">
+      <Filter>Math\4D</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\EulerAngles.hpp">
+      <Filter>Math\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\Camera.hpp">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\IntVec2.hpp">
+      <Filter>Math\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\IntVec3.hpp">
+      <Filter>Math\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Noise.hpp">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Color\RGBAchars.hpp">
+      <Filter>Color</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\glext.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\Particle.hpp">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\ParticleEmitter.hpp">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Console\Font.hpp">
+      <Filter>Console</Filter>
+    </ClInclude>
+    <ClInclude Include="Console\ConsoleCommands.hpp">
+      <Filter>Console</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\MatrixStack.hpp">
+      <Filter>Math\4D</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\Material.hpp">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\Light.hpp">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\BinaryBufferParser.hpp">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\BinaryBufferBuilder.hpp">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\BinaryFileParser.hpp">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="XML\xmlParser.h">
+      <Filter>XML</Filter>
+    </ClInclude>
+    <ClInclude Include="XML\XMLParsingSupport.hpp">
+      <Filter>XML</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\Mesh.hpp">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\Vertex.hpp">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\StringTable.hpp">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Time\Clock.hpp">
+      <Filter>Time</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Assert.hpp">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\ProfileSection.hpp">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Threads\Job.hpp">
+      <Filter>Threads</Filter>
+    </ClInclude>
+    <ClInclude Include="Threads\JobManager.hpp">
+      <Filter>Threads</Filter>
+    </ClInclude>
+    <ClInclude Include="Threads\ThreadSafeQueue.hpp">
+      <Filter>Threads</Filter>
+    </ClInclude>
+    <ClInclude Include="Threads\CriticalSection.hpp">
+      <Filter>Threads</Filter>
+    </ClInclude>
+    <ClInclude Include="Threads\JobThread.hpp">
+      <Filter>Threads</Filter>
+    </ClInclude>
+    <ClInclude Include="Threads\Thread.hpp">
+      <Filter>Threads</Filter>
+    </ClInclude>
+    <ClInclude Include="Threads\Jobs\LoadFileJob.hpp">
+      <Filter>Threads\Jobs</Filter>
+    </ClInclude>
+    <ClInclude Include="Threads\Jobs\HashBufferJob.hpp">
+      <Filter>Threads\Jobs</Filter>
+    </ClInclude>
+    <ClInclude Include="Threads\Jobs\ReverseBufferJob.hpp">
+      <Filter>Threads\Jobs</Filter>
+    </ClInclude>
+    <ClInclude Include="Threads\Jobs\SaveFileJob.hpp">
+      <Filter>Threads\Jobs</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\EngineCore.hpp">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\SignpostMemoryManager.hpp">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\ShortVec2.hpp">
+      <Filter>Math\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Networking\NetworkSystem.hpp">
+      <Filter>Networking</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Renderer\OpenGLRenderer.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\MathUtils.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Time\Time.cpp">
+      <Filter>Time</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\stb_image.c">
+      <Filter>Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\Texture.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Color\RGBA.cpp">
+      <Filter>Color</Filter>
+    </ClCompile>
+    <ClCompile Include="Input\InputSystem.cpp">
+      <Filter>Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\AnimatedTexture.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Sound\SoundSystem.cpp">
+      <Filter>Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="Sound\Sound.cpp">
+      <Filter>Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Utilities.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Console\Console.cpp">
+      <Filter>Console</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\AABB2D.cpp">
+      <Filter>Math\2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\AABB3D.cpp">
+      <Filter>Math\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\Disc2D.cpp">
+      <Filter>Math\2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\Disc3D.cpp">
+      <Filter>Math\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\LineSegment2D.cpp">
+      <Filter>Math\2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\LineSegment3D.cpp">
+      <Filter>Math\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\Vec2.cpp">
+      <Filter>Math\2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\Vec3.cpp">
+      <Filter>Math\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\Math2D.cpp">
+      <Filter>Math\2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\Vec4.cpp">
+      <Filter>Math\4D</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\Matrix4.cpp">
+      <Filter>Math\4D</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\IntVec2.cpp">
+      <Filter>Math\2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\IntVec3.cpp">
+      <Filter>Math\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\Noise.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Color\RGBAchars.cpp">
+      <Filter>Color</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\Camera.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\ParticleEmitter.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Console\Font.cpp">
+      <Filter>Console</Filter>
+    </ClCompile>
+    <ClCompile Include="Console\ConsoleCommands.cpp">
+      <Filter>Console</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\MatrixStack.cpp">
+      <Filter>Math\4D</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\Material.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\Light.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\BinaryBufferParser.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\BinaryBufferBuilder.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\BinaryFileParser.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="XML\xmlParser.cpp">
+      <Filter>XML</Filter>
+    </ClCompile>
+    <ClCompile Include="XML\XMLParsingSupport.cpp">
+      <Filter>XML</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\Mesh.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\Vertex.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\StringTable.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Time\Clock.cpp">
+      <Filter>Time</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Assert.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\ProfileSection.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Threads\Job.cpp">
+      <Filter>Threads</Filter>
+    </ClCompile>
+    <ClCompile Include="Threads\JobManager.cpp">
+      <Filter>Threads</Filter>
+    </ClCompile>
+    <ClCompile Include="Threads\CriticalSection.cpp">
+      <Filter>Threads</Filter>
+    </ClCompile>
+    <ClCompile Include="Threads\JobThread.cpp">
+      <Filter>Threads</Filter>
+    </ClCompile>
+    <ClCompile Include="Threads\Thread.cpp">
+      <Filter>Threads</Filter>
+    </ClCompile>
+    <ClCompile Include="Threads\Jobs\LoadFileJob.cpp">
+      <Filter>Threads\Jobs</Filter>
+    </ClCompile>
+    <ClCompile Include="Threads\Jobs\HashBufferJob.cpp">
+      <Filter>Threads\Jobs</Filter>
+    </ClCompile>
+    <ClCompile Include="Threads\Jobs\ReverseBufferJob.cpp">
+      <Filter>Threads\Jobs</Filter>
+    </ClCompile>
+    <ClCompile Include="Threads\Jobs\SaveFileJob.cpp">
+      <Filter>Threads\Jobs</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\EngineCore.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\SignpostMemoryManager.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\ShortVec2.cpp">
+      <Filter>Math\2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Networking\NetworkSystem.cpp">
+      <Filter>Networking</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

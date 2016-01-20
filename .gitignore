@@ -20,7 +20,6 @@
 *.lai
 *.la
 *.a
-*.lib
 
 # Executables
 *.exe
@@ -77,3 +76,16 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+
+
+
+*.suo
+Engine/Sound/cricket-1.4.2/doc/
+Engine/Sound/cricket-1.4.2/bin/
+Engine/Sound/cricket-1.4.2/inc/
+Engine/Sound/cricket-1.4.2/src/samples/
+Engine/Sound/cricket-1.4.2/build/android/
+Engine/Sound/cricket-1.4.2/lib/wp8/
+*.pdb
+*.winmd
+*.jar
