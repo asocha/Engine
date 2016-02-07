@@ -428,6 +428,32 @@ void BinaryBufferParser::ReadRGBAchars(RGBAchars& x){
 ///=====================================================
 /// 
 ///=====================================================
+void BinaryBufferParser::ReadBytes(void* out_data, size_t size) {
+	if (GetAmountOfRemainingData() < (int)size) {
+		RECOVERABLE_ERROR();
+		out_data = nullptr;
+		return;
+	}
+
+	memcpy(out_data, m_iterator, size);
+	m_iterator += size;
+}
+
+///=====================================================
+/// 
+///=====================================================
+void BinaryBufferParser::SkipBytes(size_t size) {
+	if (GetAmountOfRemainingData() < (int)size) {
+		RECOVERABLE_ERROR();
+		return;
+	}
+
+	m_iterator += size;
+}
+
+///=====================================================
+/// 
+///=====================================================
 bool BinaryBufferParser::HasReachedEndOfData() const{
 	return (m_iterator >= (m_buffer + m_bufferSize));
 }

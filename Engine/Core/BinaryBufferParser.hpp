@@ -58,6 +58,9 @@ public:
 	void ReadVec4(Vec4& x);
 	void ReadMatrix(Matrix4& x);
 	void ReadRGBAchars(RGBAchars& x);
+	void ReadBytes(void* out_data, size_t size);
+
+	void SkipBytes(size_t size);
 
 	bool HasReachedEndOfData() const;
 	int GetAmountOfRemainingData() const;

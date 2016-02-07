@@ -35,12 +35,14 @@ char* LoadTextFileToNewBuffer(const std::string& filePath, size_t& out_fileLengt
 bool LoadTextFileToExistingBuffer(const std::string& filePath, char* buffer, size_t bufferSize);
 bool LoadTextFileToExistingBuffer(const std::string& filePath, std::string& buffer);
 
+bool GetShort(const std::string& str, short& out_short);
+bool GetUnsignedShort(const std::string& str, unsigned short& out_short);
 bool GetInt(const std::string& str, int& out_int);
 bool GetFloat(const std::string& str, float& out_float);
 bool GetDouble(const std::string& str, double& out_double);
 bool GetChar(const std::string& str, char& out_char);
 bool GetCharNumber(const std::string& str, char& out_char);
-bool GetUChar(const std::string& str, unsigned char& out_char);
+bool GetUnsignedChar(const std::string& str, unsigned char& out_char);
 bool GetIntVec2(const std::string& str, IntVec2& out_int);
 bool GetColor(const std::string& str, RGBAchars& out_color);
 

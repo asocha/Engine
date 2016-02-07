@@ -11,6 +11,9 @@
 #include "Engine/Core/StringTable.hpp"
 #include "Engine/Console/ConsoleCommands.hpp"
 #include "Engine/Core/Utilities.hpp"
+#include "Engine/Networking/UDPSocket.hpp"
+#include "Engine/Networking/NetworkSession.hpp"
+#include "NetworkMessageDefinition.hpp"
 
 #pragma comment(lib, "ws2_32.lib")
 
@@ -19,6 +22,17 @@ SOCKET NetworkSystem::s_tempSocket;
 unsigned int NetworkSystem::s_tempClientID;
 std::map<unsigned int, Client>::iterator NetworkSystem::s_clientIter;
 
+NetworkSystem* s_theNetworkSystem = nullptr;
+
+
+///=====================================================
+/// 
+///=====================================================
+NetworkSystem::NetworkSystem() {
+	FATAL_ASSERT(s_theNetworkSystem == nullptr);
+	s_theNetworkSystem = this;
+}
+
 ///=====================================================
 /// 
 ///=====================================================
@@ -26,6 +40,7 @@ bool NetworkSystem::Init() const{
 	WSADATA wsa_data;
 	int error = WSAStartup(MAKEWORD(2, 2), &wsa_data);
 	if (error == 0) {
+		RegisterBuiltInMessageDefinitions();
 		return true;
 	}
 	else {
@@ -40,6 +55,23 @@ bool NetworkSystem::Init() const{
 ///=====================================================
 void NetworkSystem::Deinit() const{
 	WSACleanup();
+
+	for (NetworkMessageDefinitionRegistry::const_iterator definitionIter = NetworkMessageDefinition::s_definitionRegistry.cbegin(); definitionIter != NetworkMessageDefinition::s_definitionRegistry.cend(); ++definitionIter) {
+		delete definitionIter->second;
+	}
+}
+
+///=====================================================
+/// 
+///=====================================================
+UDPSocket* NetworkSystem::CreateUDPSocket(NetworkPacketQueue* queue, unsigned short port) {
+	UDPSocket* socket = new UDPSocket(queue, port);
+	if (socket->m_serviceThread.m_socket == INVALID_SOCKET) {
+		delete socket;
+		socket = nullptr;
+	}
+
+	return socket;
 }
 
 ///=====================================================
@@ -63,7 +95,7 @@ std::string NetworkSystem::AllocLocalHostName() const{
 ///=====================================================
 /// 
 ///=====================================================
-addrinfo* NetworkSystem::GetSocketAddress(const std::string& hostName, const std::string& service, int addressFamily /*= AF_UNSPEC*/) const{
+addrinfo* NetworkSystem::GetSocketAddress(const char* hostName, const char* service, int addressFamily /*= AF_UNSPEC*/) {
 	std::string tempHostName = hostName;
 
 	if (tempHostName.empty()) {
@@ -81,7 +113,7 @@ addrinfo* NetworkSystem::GetSocketAddress(const std::string& hostName, const std
 	hints.ai_flags = AI_PASSIVE; // used for binding/listening
 
 	addrinfo* addr;
-	int status = getaddrinfo(tempHostName.c_str(), service.c_str(), &hints, &addr);
+	int status = getaddrinfo(tempHostName.c_str(), service, &hints, &addr);
 	if (status != 0) {
 		ConsolePrintf("Failed to create socket address: %s\n", gai_strerror(status));
 		return nullptr;
@@ -89,24 +121,58 @@ addrinfo* NetworkSystem::GetSocketAddress(const std::string& hostName, const std
 
 	return addr;
 }
+///=====================================================
+/// 
+///=====================================================
+addrinfo* NetworkSystem::GetSocketAddress(const BYTE* hostName, unsigned short service, int addressFamily /*= AF_UNSPEC*/) {
+	return GetSocketAddress((const char*)hostName, std::to_string(service).c_str(), addressFamily);
+}
+///=====================================================
+/// 
+///=====================================================
+addrinfo* NetworkSystem::GetSocketAddress(const std::string& hostName, const std::string& service, int addressFamily /*= AF_UNSPEC*/) {
+	return GetSocketAddress(hostName.c_str(), service.c_str(), addressFamily);
+}
 
 ///=====================================================
 /// 
 ///=====================================================
-void NetworkSystem::BindAddress(addrinfo* address, const std::string& service) const {
+addrinfo* NetworkSystem::GetSocketAddress(const UDPSocket& socket) {
+	return GetSocketAddress("localhost", std::to_string(socket.GetPort()).c_str());
+}
+
+///=====================================================
+/// 
+///=====================================================
+void NetworkSystem::RegisterBuiltInMessageDefinitions() const {
+	new NetworkMessageDefinition(MessageID::Ping, "Ping", PingCallback);
+}
+
+///=====================================================
+/// 
+///=====================================================
+void NetworkSystem::PrintAddress(addrinfo* address, const std::string& service) const {
 	char addressName[INET6_ADDRSTRLEN];
-	inet_ntop(address->ai_family, GetInAddress(address->ai_addr), addressName, INET6_ADDRSTRLEN);
+	unsigned short unused_port;
+	inet_ntop(address->ai_family, GetAddressAndPort(address->ai_addr, unused_port), addressName, INET6_ADDRSTRLEN);
 	ConsolePrintf("Address family[%i] type[%i] %s: %s\n", address->ai_family, address->ai_socktype, addressName, service.c_str());
 }
 
 ///=====================================================
-/// get sockaddr, IPv4 or IPv6:
+/// get address, IPv4 or IPv6:
 ///=====================================================
-void* NetworkSystem::GetInAddress(sockaddr* sa){
+void* NetworkSystem::GetAddressAndPort(const sockaddr* sa, unsigned short& out_port){
 	if (sa->sa_family == AF_INET) {
+		//for some reason the bytes of the port are swapped when I receive a packet
+		((unsigned char*)&out_port)[0] = ((unsigned char*)&(((sockaddr_in*)sa)->sin_port))[1];
+		((unsigned char*)&out_port)[1] = ((unsigned char*)&(((sockaddr_in*)sa)->sin_port))[0];
+
+		//out_port = ((sockaddr_in*)sa)->sin_port;
 		return &(((sockaddr_in*)sa)->sin_addr);
 	}
 	else {
+		//MIGHT BE SWAPPED TOO?
+		out_port = ((sockaddr_in6*)sa)->sin6_port;
 		return &(((sockaddr_in6*)sa)->sin6_addr);
 	}
 }
@@ -114,11 +180,24 @@ void* NetworkSystem::GetInAddress(sockaddr* sa){
 ///=====================================================
 /// 
 ///=====================================================
+std::string NetworkSystem::GetAddressString(const addrinfo* address) {
+	FATAL_ASSERT(address != nullptr);
+
+	char addressName[INET6_ADDRSTRLEN];
+	unsigned short unused_port;
+	inet_ntop(address->ai_family, NetworkSystem::GetAddressAndPort(address->ai_addr, unused_port), addressName, INET6_ADDRSTRLEN);
+
+	return addressName;
+}
+
+///=====================================================
+/// 
+///=====================================================
 bool NetworkSystem::DidNetworkError(const std::string& message){
 	int error = WSAGetLastError();
-	if (error != WSAEWOULDBLOCK) {
+	if (error != WSAEWOULDBLOCK && error != WSAEMSGSIZE) {
 		ConsolePrintf("%s: %i\n", message.c_str(), error);
-		RECOVERABLE_ERROR();
+		RECOVERABLE_ERROR("Network Error");
 		return true;
 	}
 
@@ -376,7 +455,7 @@ SOCKET NetworkSystem::CreateHostSocket(const std::string& hostName, const std::s
 
 	SOCKET hostSocket = INVALID_SOCKET;
 	for (; address != nullptr; address = address->ai_next) {
-		BindAddress(address, service);
+		PrintAddress(address, service);
 
 		hostSocket = socket(address->ai_family, address->ai_socktype, address->ai_protocol);
 		if (hostSocket == INVALID_SOCKET) {
@@ -419,7 +498,7 @@ void NetworkSystem::PrintAddressesForHost(const std::string& hostName, const std
 	addrinfo* address = GetSocketAddress(hostName, service);
 
 	for (; address != nullptr; address = address->ai_next) {
-		BindAddress(address, service);
+		PrintAddress(address, service);
 	}
 
 	freeaddrinfo(address);
@@ -476,7 +555,7 @@ void NetworkSystem::StartClient(const std::string& hostName, const std::string& 
 
 	SOCKET hostSocket = INVALID_SOCKET;
 	for (; address != nullptr; address = address->ai_next) {
-		BindAddress(address, service);
+		PrintAddress(address, service);
 
 		hostSocket = socket(address->ai_family, address->ai_socktype, address->ai_protocol);
 		if (hostSocket == INVALID_SOCKET) {

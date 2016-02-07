@@ -363,10 +363,15 @@ void Console::PrintToFile(const std::string& filename) const{
 /// 
 ///=====================================================
 void Console::ScrollUpTextHistory(){
-	if (m_currentTextHistoryIndex == 0)
+	if (m_text.size() == 1)
+		return;
+
+	if (m_currentTextHistoryIndex == 0){
 		m_currentTextHistoryIndex = (unsigned int)(m_text.size() - 2);
-	else
+	}
+	else {
 		--m_currentTextHistoryIndex;
+	}
 	FATAL_ASSERT(m_currentTextHistoryIndex < m_text.size());
 
 	m_text[m_text.size() - 1].string = m_text[m_currentTextHistoryIndex].string;
@@ -377,6 +382,9 @@ void Console::ScrollUpTextHistory(){
 /// 
 ///=====================================================
 void Console::ScrollDownTextHistory(){
+	if (m_text.size() == 1)
+		return;
+
 	if (m_currentTextHistoryIndex >= m_text.size() - 2)
 		m_currentTextHistoryIndex = 0;
 	else
@@ -482,13 +490,13 @@ CONSOLE_COMMAND(COLOR){
 
 	unsigned char alpha = 255;
 	if (args->m_args[0] == "4"){
-		if (!GetUChar(args->m_args[4], alpha)) return false;
+		if (!GetUnsignedChar(args->m_args[4], alpha)) return false;
 	}
 
 	unsigned char r, g, b;
-	if (!GetUChar(args->m_args[1], r)) return false;
-	if (!GetUChar(args->m_args[2], g)) return false;
-	if (!GetUChar(args->m_args[3], b)) return false;
+	if (!GetUnsignedChar(args->m_args[1], r)) return false;
+	if (!GetUnsignedChar(args->m_args[2], g)) return false;
+	if (!GetUnsignedChar(args->m_args[3], b)) return false;
 
 	s_theConsole->SetInputStringColor(RGBAchars(r, g, b, alpha));
 	return true;

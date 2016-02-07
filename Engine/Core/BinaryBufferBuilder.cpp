@@ -192,6 +192,15 @@ void BinaryBufferBuilder::AppendVertex_Anim(const Vertex_Anim& x){
 ///=====================================================
 /// 
 ///=====================================================
+void BinaryBufferBuilder::AppendBytes(void* data, size_t size) {
+	for (size_t i = 0; i < size; ++i) {
+		AppendChar(((char*)data)[i]);
+	}
+}
+
+///=====================================================
+/// 
+///=====================================================
 void BinaryBufferBuilder::WriteBufferToFile(const std::string& filename) const{
 	WriteBufferToBinaryFile(m_buffer, filename);
 }

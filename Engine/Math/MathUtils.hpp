@@ -38,6 +38,16 @@ float SmoothStep(float normalizedValue);
 float AsymptoticAdd(float normalizedValueA, float normalizedValueB);
 float Interpolate(float start, float end, float fractionFromStartToEnd);
 
+///=====================================================
+/// maximum value of 2 values, when those values are in a repeating cycle of values
+///=====================================================
+template<typename T> T CycleMax(T a, T b) {
+	T distance = a - b;
+	if (d < MAX_VALUE(T) / (T)2)
+		return a;
+	else
+		return b;
+}
 
 ///=====================================================
 /// 

@@ -370,6 +370,34 @@ bool LoadTextFileToExistingBuffer(const std::string& filePath, std::string& buff
 ///=====================================================
 /// 
 ///=====================================================
+bool GetShort(const std::string& str, short& out_short) {
+	assert(!str.empty());
+	char* end;
+	const char* begin = str.c_str();
+
+	out_short = (short)strtol(begin, &end, 10);
+
+	if (end == begin) return false;
+	return true;
+}
+
+///=====================================================
+/// 
+///=====================================================
+bool GetUnsignedShort(const std::string& str, unsigned short& out_short) {
+	assert(!str.empty());
+	char* end;
+	const char* begin = str.c_str();
+
+	out_short = (unsigned short)strtol(begin, &end, 10);
+
+	if (end == begin) return false;
+	return true;
+}
+
+///=====================================================
+/// 
+///=====================================================
 bool GetInt(const std::string& str, int& out_int){
 	assert(!str.empty());
 	char* end;
@@ -441,7 +469,7 @@ bool GetCharNumber(const std::string& str, char& out_char){
 ///=====================================================
 /// 
 ///=====================================================
-bool GetUChar(const std::string& str, unsigned char& out_char){
+bool GetUnsignedChar(const std::string& str, unsigned char& out_char){
 	assert(!str.empty());
 	char* end;
 	const char* begin = str.c_str();

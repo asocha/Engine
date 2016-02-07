@@ -42,6 +42,7 @@ public:
 	void AppendC23Header(const C23Header& x);
 	void AppendVertex3D_PCTNTB(const Vertex3D_PCTNTB& x);
 	void AppendVertex_Anim(const Vertex_Anim& x);
+	void AppendBytes(void* data, size_t size);
 	
 	void WriteBufferToFile(const std::string& filename) const;
 };
