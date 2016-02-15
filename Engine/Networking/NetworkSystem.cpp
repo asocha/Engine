@@ -146,6 +146,7 @@ addrinfo* NetworkSystem::GetSocketAddress(const UDPSocket& socket) {
 ///=====================================================
 void NetworkSystem::RegisterBuiltInMessageDefinitions() const {
 	new NetworkMessageDefinition(MessageID::Ping, "Ping", PingCallback);
+	new NetworkMessageDefinition(MessageID::Pong, "Pong", PongCallback);
 }
 
 ///=====================================================

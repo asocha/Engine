@@ -17,11 +17,12 @@
 
 Console* s_theConsole = nullptr;
 std::map<std::string, Font*> Console::s_fonts;
-unsigned short* Console::s_indexList = nullptr;
 EngineAndrew::Material* Console::s_material = nullptr;
 int Console::s_iboID = 0;
 UniformVec2* Console::s_positionUniform = nullptr;
 Vec2 Console::s_prevPosition(-111110.0f, -111110.0f);
+unsigned short* Console::s_indexList = nullptr;
+const unsigned short NUM_INDECES = 6 * 1000; //must be multiple of 6 for squares
 
 ///=====================================================
 /// Print to the Visual Studio Console
@@ -40,8 +41,6 @@ void ConsolePrintf(const char* messageFormat, ...){
 	//for if we are running the program through a console
 	printf(message);
 }
-
-const unsigned short NUM_INDECES = 6 * 1000; //must be multiple of 6 for squares
 
 ///=====================================================
 /// 

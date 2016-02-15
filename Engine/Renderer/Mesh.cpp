@@ -17,22 +17,17 @@ m_vboID(0),
 m_vaoID(0),
 m_iboID(0),
 m_indeces(),
-m_vertices(),
-m_vertexType(nullptr){
+m_vertices(){
 }
 
 ///=====================================================
 /// 
 ///=====================================================
-EngineAndrew::Mesh::~Mesh(){
-	delete m_vertexType;
-}
+void EngineAndrew::Mesh::Startup(const OpenGLRenderer* renderer){
+	renderer->GenerateBuffer((GLuint*)&m_vboID);
+	renderer->GenerateBuffer((GLuint*)&m_iboID);
 
-///=====================================================
-/// 
-///=====================================================
-void EngineAndrew::Mesh::Startup(OpenGLRenderer* /*renderer*/){
-	//not yet implemented, use LoadFromC23File
+	m_vaoID = renderer->CreateVAOBasic();
 }
 
 ///=====================================================
@@ -47,9 +42,27 @@ void EngineAndrew::Mesh::Shutdown(const OpenGLRenderer* renderer){
 ///=====================================================
 /// 
 ///=====================================================
-bool EngineAndrew::Mesh::LoadFromC23File(const std::string& filename, const OpenGLRenderer* renderer){
-	RECOVERABLE_ASSERT(m_vertexType == nullptr); //make sure mesh hasn't loaded before
+void EngineAndrew::Mesh::SendVertexDataToBuffer(const OpenGLRenderer* renderer, bool dynamicDraw /*= false*/) const{
+	FATAL_ASSERT(renderer != nullptr);
+	renderer->SendVertexDataToBuffer(m_vertices.data(), sizeof(Vertex_Anim) * m_vertices.size(), m_vboID, dynamicDraw);
+	renderer->SendVertexDataToBuffer(m_indeces.data(), sizeof(int) * m_indeces.size(), m_iboID, dynamicDraw);
+}
 
+///=====================================================
+/// Use after adding vertices to just render each vertex in order
+///=====================================================
+void EngineAndrew::Mesh::UseDefaultIndeces() {
+	RECOVERABLE_ASSERT(!m_vertices.empty());
+	m_indeces.clear();
+	for (size_t i = 0; i < m_vertices.size(); ++i) {
+		m_indeces.push_back(i);
+	}
+}
+
+///=====================================================
+/// 
+///=====================================================
+bool EngineAndrew::Mesh::LoadFromC23File(const std::string& filename, const OpenGLRenderer* renderer){
 	BinaryFileParser fileParser(filename);
 	if (fileParser.ReadChar() != 'G') return false; //4-cc
 	if (fileParser.ReadChar() != 'C') return false;
@@ -59,8 +72,6 @@ bool EngineAndrew::Mesh::LoadFromC23File(const std::string& filename, const Open
 	char subtype = fileParser.ReadChar();
 	if (subtype != 2 && subtype != 4) return false; //subversion
 	fileParser.ReadString();
-
-	m_vertexType = new Vertex_Anim();
 
 	m_indeces.clear();
 	m_vertices.clear();

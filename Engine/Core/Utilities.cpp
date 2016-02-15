@@ -10,6 +10,7 @@
 #include "Engine/Color/RGBAchars.hpp"
 #include "Engine/Math/IntVec2.hpp"
 #include <algorithm>
+#include "Assert.hpp"
 
 ///=====================================================
 /// 
@@ -50,14 +51,14 @@ bool WriteBufferToBinaryFile(const unsigned char* buffer, size_t bufferSize, con
 	FILE* file;
 	errno_t error = fopen_s(&file, filePath.c_str(), "wb");
 	if (error != 0){
-		assert(false);
+		FATAL_ERROR("Can't open file: " + filePath);
 		return false;
 	}
 
 	size_t sizeWritten = fwrite(buffer, sizeof(unsigned char), bufferSize, file);
 	fclose(file);
 	if (sizeWritten != bufferSize){
-		assert(false);
+		FATAL_ERROR("Can't write file: " + filePath);
 		return false;
 	}
 	return true;
@@ -70,14 +71,14 @@ bool WriteBufferToBinaryFile(const std::vector<unsigned char>& buffer, const std
 	FILE* file;
 	errno_t error = fopen_s(&file, filePath.c_str(), "wb");
 	if (error != 0){
-		assert(false);
+		FATAL_ERROR("Can't open file: " + filePath);
 		return false;
 	}
 
 	size_t sizeWritten = fwrite(buffer.data(), sizeof(unsigned char), buffer.size(), file);
 	fclose(file);
 	if (sizeWritten != buffer.size()){
-		assert(false);
+		FATAL_ERROR("Can't write file: " + filePath);
 		return false;
 	}
 	return true;
@@ -90,14 +91,14 @@ bool WriteBufferToTextFile(const char* buffer, size_t bufferSize, const std::str
 	FILE* file;
 	errno_t error = fopen_s(&file, filePath.c_str(), "wb");
 	if (error != 0){
-		assert(false);
+		FATAL_ERROR("Can't open file: " + filePath);
 		return false;
 	}
 
 	size_t sizeWritten = fwrite(buffer, sizeof(char), bufferSize - 1, file); //-1 to omit null terminator
 	fclose(file);
 	if (sizeWritten != bufferSize - 1){
-		assert(false);
+		FATAL_ERROR("Can't write file: " + filePath);
 		return false;
 	}
 	return true;
@@ -110,14 +111,14 @@ bool WriteBufferToTextFile(const std::string& buffer, const std::string& filePat
 	FILE* file;
 	errno_t error = fopen_s(&file, filePath.c_str(), "wb");
 	if (error != 0){
-		assert(false);
+		FATAL_ERROR("Can't open file: " + filePath);
 		return false;
 	}
 
 	size_t sizeWritten = fwrite(buffer.data(), sizeof(char), buffer.size() - 1, file); //-1 to omit null terminator
 	fclose(file);
 	if (sizeWritten != buffer.size() - 1){
-		assert(false);
+		FATAL_ERROR("Can't write file: " + filePath);
 		return false;
 	}
 	return true;
@@ -164,7 +165,7 @@ unsigned char* LoadBinaryFileToNewBuffer(const std::string& filePath){
 	FILE* file;
 	errno_t error = fopen_s(&file, filePath.c_str(), "rb");
 	if (error != 0){
-		assert(false);
+		FATAL_ERROR("Can't find file: " + filePath);
 		return nullptr;
 	}
 
@@ -175,7 +176,7 @@ unsigned char* LoadBinaryFileToNewBuffer(const std::string& filePath){
 	fclose(file);
 
 	if (sizeRead != size){
-		assert(false);
+		FATAL_ERROR("Can't read file: " + filePath);
 		return nullptr;
 	}
 
@@ -189,7 +190,7 @@ unsigned char* LoadBinaryFileToNewBuffer(const std::string& filePath, size_t& ou
 	FILE* file;
 	errno_t error = fopen_s(&file, filePath.c_str(), "rb");
 	if (error != 0){
-		assert(false);
+		FATAL_ERROR("Can't find file: " + filePath);
 		return nullptr;
 	}
 
@@ -200,7 +201,7 @@ unsigned char* LoadBinaryFileToNewBuffer(const std::string& filePath, size_t& ou
 	fclose(file);
 
 	if (sizeRead != out_fileLength){
-		assert(false);
+		FATAL_ERROR("Can't read file: " + filePath);
 		return nullptr;
 	}
 
@@ -214,14 +215,14 @@ bool LoadBinaryFileToExistingBuffer(const std::string& filePath, unsigned char* 
 	FILE* file;
 	errno_t error = fopen_s(&file, filePath.c_str(), "rb");
 	if (error != 0){
-		assert(false);
+		FATAL_ERROR("Can't find file: " + filePath);
 		return false;
 	}
 
 	size_t size = fread(buffer, sizeof(unsigned char), bufferSize, file);
 	fclose(file);
 	if (size == 0){
-		assert(false);
+		FATAL_ERROR("Can't read file: " + filePath);
 		return false;
 	}
 
@@ -235,13 +236,13 @@ bool LoadBinaryFileToExistingBuffer(const std::string& filePath, std::vector<uns
 	FILE* file;
 	errno_t error = fopen_s(&file, filePath.c_str(), "rb");
 	if (error != 0){
-		assert(false);
+		FATAL_ERROR("Can't find file: " + filePath);
 		return false;
 	}
 
 	size_t size = GetFileLength(file);
 	if (size == 0){
-		assert(false);
+		FATAL_ERROR("Can't read file: " + filePath);
 		return false;
 	}
 	buffer.resize(size);
@@ -250,7 +251,7 @@ bool LoadBinaryFileToExistingBuffer(const std::string& filePath, std::vector<uns
 	fclose(file);
 	
 	if (sizeRead != size){
-		assert(false);
+		FATAL_ERROR("Can't read file: " + filePath);
 		return nullptr;
 	}
 
@@ -264,7 +265,7 @@ char* LoadTextFileToNewBuffer(const std::string& filePath){
 	FILE* file;
 	errno_t error = fopen_s(&file, filePath.c_str(), "rb");
 	if (error != 0){
-		assert(false);
+		FATAL_ERROR("Can't find file: " + filePath);
 		return nullptr;
 	}
 
@@ -275,7 +276,7 @@ char* LoadTextFileToNewBuffer(const std::string& filePath){
 	fclose(file);
 
 	if (sizeRead != size){
-		assert(false);
+		FATAL_ERROR("Can't read file: " + filePath);
 		return nullptr;
 	}
 	buffer[size] = '\0';
@@ -290,7 +291,7 @@ char* LoadTextFileToNewBuffer(const std::string& filePath, size_t& out_fileLengt
 	FILE* file;
 	errno_t error = fopen_s(&file, filePath.c_str(), "rb");
 	if (error != 0){
-		assert(false);
+		FATAL_ERROR("Can't find file: " + filePath);
 		return nullptr;
 	}
 
@@ -301,7 +302,7 @@ char* LoadTextFileToNewBuffer(const std::string& filePath, size_t& out_fileLengt
 	fclose(file);
 
 	if (sizeRead != out_fileLength){
-		assert(false);
+		FATAL_ERROR("Can't read file: " + filePath);
 		return nullptr;
 	}
 	buffer[out_fileLength] = '\0';
@@ -318,14 +319,14 @@ bool LoadTextFileToExistingBuffer(const std::string& filePath, char* buffer, siz
 	FILE* file;
 	errno_t error = fopen_s(&file, filePath.c_str(), "rb");
 	if (error != 0){
-		assert(false);
+		FATAL_ERROR("Can't find file: " + filePath);
 		return false;
 	}
 
 	size_t size = fread(buffer, sizeof(char), bufferSize, file);
 	fclose(file);
 	if (size == 0){
-		assert(false);
+		FATAL_ERROR("Can't read file: " + filePath);
 		return false;
 	}
 

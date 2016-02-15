@@ -35,6 +35,7 @@ struct Vertex_Anim : public Vertex{
 	const Uniforms SetAttributes(int programID) const;
 
 	inline Vertex_Anim() :m_position(), m_normal(), m_texCoords(), m_tangent(), m_bitangent(), m_color(), m_boneWeights(1.0f, 0.0f, 0.0f){ m_boneIndeces[0] = 0;  m_boneIndeces[1] = 0;  m_boneIndeces[2] = 0;  m_boneIndeces[3] = 0; }
+	inline Vertex_Anim(const Vec3& position) : m_position(position), m_normal(), m_texCoords(), m_tangent(), m_bitangent(), m_color(), m_boneWeights(1.0f, 0.0f, 0.0f) { m_boneIndeces[0] = 0;  m_boneIndeces[1] = 0;  m_boneIndeces[2] = 0;  m_boneIndeces[3] = 0; }
 };
 
 struct Vertex3D_PCNTTTB : public Vertex{

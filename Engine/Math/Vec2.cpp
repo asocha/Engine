@@ -39,8 +39,9 @@ void Vec2::RotateDegrees(float degrees){
 	float cosTheta = cosf(radians);
 	float sinTheta = sinf(radians);
 
+	float xTemp = x;
 	x = x * cosTheta - y * sinTheta;
-	y = x * sinTheta + y * cosTheta;
+	y = xTemp * sinTheta + y * cosTheta;
 }
 
 ///=====================================================
@@ -50,8 +51,9 @@ void Vec2::RotateRadians(float radians){
 	float cosTheta = cosf(radians);
 	float sinTheta = sinf(radians);
 
+	float xTemp = x;
 	x = x * cosTheta - y * sinTheta;
-	y = x * sinTheta + y * cosTheta;
+	y = xTemp * sinTheta + y * cosTheta;
 }
 
 ///=====================================================
@@ -164,9 +166,11 @@ void RotatePointsByDegrees(Vec2s& points, float degrees){
 	float cosTheta = cosf(radians);
 	float sinTheta = sinf(radians);
 
+	float xTemp;
 	for (Vec2s::iterator pointIter = points.begin(); pointIter != points.end(); ++pointIter){
+		xTemp = pointIter->x;
 		pointIter->x = pointIter->x * cosTheta - pointIter->y * sinTheta;
-		pointIter->y = pointIter->x * sinTheta + pointIter->y * cosTheta;
+		pointIter->y = xTemp * sinTheta + pointIter->y * cosTheta;
 	}
 }
 
@@ -177,8 +181,10 @@ void RotatePointsByRadians(Vec2s& points, float radians){
 	float cosTheta = cosf(radians);
 	float sinTheta = sinf(radians);
 
+	float xTemp;
 	for (Vec2s::iterator pointIter = points.begin(); pointIter != points.end(); ++pointIter){
+		xTemp = pointIter->x;
 		pointIter->x = pointIter->x * cosTheta - pointIter->y * sinTheta;
-		pointIter->y = pointIter->x * sinTheta + pointIter->y * cosTheta;
+		pointIter->y = xTemp * sinTheta + pointIter->y * cosTheta;
 	}
 }

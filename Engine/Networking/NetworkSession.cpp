@@ -184,6 +184,12 @@ NetworkConnection* NetworkSession::FindConnection(const NetworkAddress& address)
 bool NetworkSession::ValidatePacket(NetworkPacket* packet, std::vector<NetworkMessage>& out_messages) const {
 	packet->PrepareToRead();
 
+	int packetBufferSize = packet->GetAmountOfRemainingData();
+	if (packetBufferSize < NetworkPacket::PACKET_METADATA_SIZE + NetworkMessage::MESSAGE_METADATA_SIZE)
+		return false;
+	if (packetBufferSize > PACKET_MTU)
+		return false;
+
 	unsigned short totalPacketLength = NetworkPacket::PACKET_METADATA_SIZE;
 	/*unsigned short packetAck = */packet->ReadUnsignedShort(); //todo: use this
 	unsigned char numMessages = packet->ReadUnsignedChar();
@@ -192,7 +198,7 @@ bool NetworkSession::ValidatePacket(NetworkPacket* packet, std::vector<NetworkMe
 
 	for (int i = 0; i < numMessages; ++i) {
 		unsigned short messageLengthWithMetadata = packet->ReadUnsignedShort();
-		if (messageLengthWithMetadata > MESSAGE_MTU || messageLengthWithMetadata <= NetworkMessage::MESSAGE_METADATA_SIZE)
+		if (messageLengthWithMetadata > MESSAGE_MTU || messageLengthWithMetadata < NetworkMessage::MESSAGE_METADATA_SIZE)
 			return false;
 
 		totalPacketLength += messageLengthWithMetadata;
@@ -210,8 +216,9 @@ bool NetworkSession::ValidatePacket(NetworkPacket* packet, std::vector<NetworkMe
 		out_messages.push_back(message);
 	}
 
-	if (totalPacketLength > PACKET_MTU)
+	if (packetBufferSize != totalPacketLength) {
 		return false;
+	}
 
 	return true;
 }

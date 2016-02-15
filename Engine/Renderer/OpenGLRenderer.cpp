@@ -14,6 +14,7 @@
 #include "Engine/Core/Utilities.hpp"
 #include "Engine/Renderer/Vertex.hpp"
 #include <assert.h>
+#include "../Core/Assert.hpp"
 
 //advanced openGL rendering functions
 PFNGLGENBUFFERSPROC	glGenBuffers = nullptr;
@@ -233,7 +234,7 @@ void OpenGLRenderer::OpenGLCheckError(const char* file, int line){
 	GLenum error = glGetError();
 	if (error != GL_NO_ERROR){
 		ConsolePrintf("\nGL Error:\n%s(%i): %i\n", file, line, error);
-		assert(false);
+		FATAL_ERROR("GL Error");
 	}
 }
 
@@ -1887,15 +1888,6 @@ void OpenGLRenderer::SetPerspectiveViewWithLoadMatrix() const{
 void OpenGLRenderer::SetOrthographicView() const{
 	glLoadIdentity();
 	glOrtho(0.0f, m_displayWidth, 0.0f, m_displayHeight, 0.0f, 0.1f);
-	GLCheckError();
-}
-
-///=====================================================
-/// Deprecated
-///=====================================================
-void OpenGLRenderer::SetPerspectiveView(float fieldOfViewDegreesVertical /*= 50.0f*/, float aspectRatio /*= 1.7777777777f*/, float nearDepth /*= 0.1f*/, float farDepth /*= 500.0f*/) const{
-	glLoadIdentity();
-	gluPerspective(fieldOfViewDegreesVertical, aspectRatio, nearDepth, farDepth);
 	GLCheckError();
 }
 

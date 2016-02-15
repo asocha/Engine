@@ -151,7 +151,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>opengl32.lib;glu32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>
       </AdditionalLibraryDirectories>
     </Lib>
@@ -220,7 +220,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>opengl32.lib;glu32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>
       </AdditionalLibraryDirectories>
     </Lib>
@@ -292,7 +292,7 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <Lib>
-      <AdditionalDependencies>opengl32.lib;glu32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>
       </AdditionalLibraryDirectories>
     </Lib>
@@ -359,7 +359,6 @@
     <ClInclude Include="Core\BinaryBufferParser.hpp" />
     <ClInclude Include="Core\BinaryFileParser.hpp" />
     <ClInclude Include="Core\EngineCore.hpp" />
-    <ClInclude Include="Core\ObjectPool.hpp" />
     <ClInclude Include="Core\ProfileSection.hpp" />
     <ClInclude Include="Core\SignpostMemoryManager.hpp" />
     <ClInclude Include="Core\StringTable.hpp" />
@@ -415,8 +414,6 @@
     <ClInclude Include="Threads\Jobs\ReverseBufferJob.hpp" />
     <ClInclude Include="Threads\Jobs\SaveFileJob.hpp" />
     <ClInclude Include="Threads\JobThread.hpp" />
-    <ClInclude Include="Threads\SocketReadThread.hpp" />
-    <ClInclude Include="Threads\SocketWriteThread.hpp" />
     <ClInclude Include="Threads\Thread.hpp" />
     <ClInclude Include="Threads\ThreadSafeQueue.hpp" />
     <ClInclude Include="Time\Clock.hpp" />

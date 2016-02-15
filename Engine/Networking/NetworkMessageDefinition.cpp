@@ -15,19 +15,11 @@ NetworkMessageDefinitionRegistry NetworkMessageDefinition::s_definitionRegistry;
 /// 
 ///=====================================================
 NetworkMessageDefinition* NetworkMessageDefinition::GetDefinitionByID(MessageID id) {
-	std::map<MessageID, NetworkMessageDefinition*>::const_iterator definitionIter = s_definitionRegistry.find(id);
+	NetworkMessageDefinitionRegistry::const_iterator definitionIter = s_definitionRegistry.find(id);
 	if (definitionIter == s_definitionRegistry.cend())
 		return nullptr;
 
 	return definitionIter->second;
-}
-
-///=====================================================
-/// 
-///=====================================================
-void PingCallback(const NetworkConnection* /*connection*/, const NetworkMessage& message) {
-	s_theConsole->Printf("Received a message: %s", message.GetMessage());
-	s_theConsole->CreateInputString();
 }
 
 ///=====================================================
@@ -46,9 +38,25 @@ m_callback(callback){
 ///=====================================================
 bool NetworkMessageDefinition::ValidateID(MessageID id) {
 	if (s_definitionRegistry.find(id) == s_definitionRegistry.cend()) {
-		FATAL_ERROR("Invalid Message ID");
+		RECOVERABLE_ERROR("Invalid Message ID: " + std::to_string(id));
 		return false;
 	}
 
 	return true;
+}
+
+///=====================================================
+/// 
+///=====================================================
+void PingCallback(const NetworkConnection* /*connection*/, const NetworkMessage& message) {
+	s_theConsole->Printf("Received a message: %s", message.GetMessage());
+	s_theConsole->CreateInputString();
+}
+
+///=====================================================
+/// 
+///=====================================================
+void PongCallback(const NetworkConnection* /*connection*/, const NetworkMessage& message) {
+	s_theConsole->Printf("Received a message: %s", message.GetMessage());
+	s_theConsole->CreateInputString();
 }

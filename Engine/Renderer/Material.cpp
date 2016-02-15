@@ -45,6 +45,22 @@ void EngineAndrew::Material::BindVertexData(int bufferID, const Vertex& vertex){
 }
 
 ///=====================================================
+/// must be done AFTER creating VAO
+///=====================================================
+void EngineAndrew::Material::BindVertexData(const Mesh& mesh) {
+	glBindBuffer(GL_ARRAY_BUFFER, mesh.m_vboID);
+	if (!m_vertexAttributes.empty()) {
+		for (Uniforms::const_iterator attributeIter = m_vertexAttributes.cbegin(); attributeIter != m_vertexAttributes.cend(); ++attributeIter) {
+			const Uniform* vertexAttribute = *attributeIter;
+			delete vertexAttribute;
+		}
+	}
+
+	Vertex_Anim vertex;
+	m_vertexAttributes = vertex.SetAttributes(m_programID);
+}
+
+///=====================================================
 /// 
 ///=====================================================
 bool EngineAndrew::Material::CreateProgram(OpenGLRenderer* renderer, const std::string& vertFile, const std::string& fragFile){

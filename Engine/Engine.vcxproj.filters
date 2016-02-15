@@ -255,17 +255,8 @@
     <ClInclude Include="Networking\NetworkMessageDefinition.hpp">
       <Filter>Networking</Filter>
     </ClInclude>
-    <ClInclude Include="Core\ObjectPool.hpp">
-      <Filter>Core</Filter>
-    </ClInclude>
     <ClInclude Include="Networking\UDPSocket.hpp">
       <Filter>Networking</Filter>
-    </ClInclude>
-    <ClInclude Include="Threads\SocketReadThread.hpp">
-      <Filter>Threads</Filter>
-    </ClInclude>
-    <ClInclude Include="Threads\SocketWriteThread.hpp">
-      <Filter>Threads</Filter>
     </ClInclude>
     <ClInclude Include="Networking\NetworkAddress.hpp">
       <Filter>Networking</Filter>

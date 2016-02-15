@@ -16,7 +16,8 @@ class NetworkMessage;
 typedef void(*NetworkCallback)(const NetworkConnection* connection, const NetworkMessage& message);
 
 enum MessageID{
-	Ping = 0
+	Ping = 0,
+	Pong
 };
 
 typedef std::map<MessageID, struct NetworkMessageDefinition*> NetworkMessageDefinitionRegistry;
@@ -41,5 +42,6 @@ public:
 };
 
 void PingCallback(const NetworkConnection* connection, const NetworkMessage& message);
+void PongCallback(const NetworkConnection* connection, const NetworkMessage& message);
 
 #endif

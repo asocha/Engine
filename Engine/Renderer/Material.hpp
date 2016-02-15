@@ -45,8 +45,9 @@ namespace EngineAndrew{
 		~Material();
 
 		void BindVertexData(int bufferID, const Vertex& vertex);
+		void BindVertexData(const Mesh& mesh);
 
-		inline void SetBaseShape(GLenum shape){ m_baseShape = shape; }
+		inline void SetBaseShape(GLenum shape) { m_baseShape = shape; }
 
 		inline void SetProgram(int programID){ m_programID = programID; }
 		bool CreateProgram(OpenGLRenderer* renderer, const std::string& vertFile, const std::string& fragFile);

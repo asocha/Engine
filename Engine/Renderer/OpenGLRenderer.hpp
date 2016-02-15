@@ -115,7 +115,6 @@ public:
 	void SetOrthographicViewWithLoadMatrix() const;
 	void SetPerspectiveViewWithLoadMatrix() const;
 	void SetOrthographicView() const;
-	void SetPerspectiveView(float fieldOfViewDegreesVertical = 50.0f, float aspectRatio = 1.7777777777f, float nearDepth = 0.1f, float farDepth = 500.0f) const;
 	void SetDepthTest(bool enabled) const;
 	void SetAlphaTest(bool enabled) const;
 	void SetCulling(bool enabled) const;

@@ -24,7 +24,7 @@ public:
 	///=====================================================
 	inline Vec3(){}
 	inline Vec3(const Vec3& copy): x(copy.x), y(copy.y), z(copy.z){}
-	inline explicit Vec3(float initialX, float initialY, float initialZ): x(initialX), y(initialY), z(initialZ){}
+	inline explicit Vec3(float initialX, float initialY, float initialZ = 0.0f): x(initialX), y(initialY), z(initialZ){}
 	inline explicit Vec3(const Vec4& vec4): x(vec4.x), y(vec4.y), z(vec4.z){}
 	explicit Vec3(const Vec2& vec2, float z);
 	inline ~Vec3(){}
